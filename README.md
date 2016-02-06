@@ -7,13 +7,13 @@
 
 ## Overview
 
-We already have methods that display the game board (which is mapped to an array's indices) and a method that asks for a user's input and fills out a position on the game board accordingly. However, before our program can fill out a position on the board, we need to confirm that that position is not already filled with an "X" or an "O"
+We already have methods that display the game board (which is mapped to an array's indices) and a method that asks for a user's input and fills out a position on the game board accordingly. However, before our program can fill out a position on the board, we need to confirm that that position is not already filled with an "X" or an "O".
 
 In this lab we'll be adding a `#position_taken?` method to our Tic Tac Toe game. This method will be responsible for evaluating the user's input against the Tic Tac Toe board and checking to see whether or not that position is occupied.
 
-For example, if the user inputs that they would like to fill out position `2`, our `#position_taken?` method will check to see if that position is vacant or if it contains an "X" or an "O". If the position is free, the method should return `false` (i.e. "not taken"), otherwise it will return `true`.
+For example, if the user inputs that they would like to fill out position 2, our `#position_taken?` method will check to see if that position contains an "X" or an "O". If the position is free, the method should return `false` (i.e. "not taken"), otherwise it will return `true`.
 
-Important note:  in previous iterations of Tic-Tac-Toe, the programmer was required to adjust the index of the array such that when the person playing the game chose position 1, we actually look at position 0. In this helper method, position 1 _*means*_ position 1. Whenever we call this helper method, the data being passed in will already be offset through the other method that is calling it. We'll see this firsthand in the very next lab!
+**Important note**:  in previous iterations of Tic-Tac-Toe, the programmer was required to adjust the index of the array such that when the person playing the game chose position 1, we look at index 0. In this helper method, the position will _*already be adjusted*_. Whenever we call it, the data being passed in will already be offset through the other method that is calling it. We'll see this firsthand in the very next lab!
 
 ### Validating User Input
 
@@ -23,14 +23,14 @@ The concept of validations is a common one, and you're likely to encounter it in
 
 ### A Note on Methods Ending in a `?`
 
-Conventionally, we name methods that return either `true` or `false` by adding a literal question mark to the end of the name. So, if our method is meant to answer the question: "is this position taken?", we will phrase our method definition just like that, `position_taken?`. This reflects one of the most appealing features of Ruby, its readability. Ruby lends itself especially well to elegant and sensical statements, which offers advantages to beginner programmers.
+Conventionally, we name methods that return either `true` or `false` by adding a literal question mark to the end of the name. So, if our method is meant to answer the question: "is this position taken?", we will phrase our method definition just like that, `position_taken?`. This reflects one of the most appealing features of Ruby, its readability. Ruby lends itself especially well to elegant and sensible statements, which offers advantages to beginner programmers.
 
 ## Instructions
 
 We'll be breaking this lab down into two parts:
 
 1. Define a method that checks if a given space on the board is empty, i.e. equal to `" "`.
-2. Address the "edge cases" - scenarios that qualify as an empty space that isn't equal to the literal `" "`. For example, we would want to consider `""` to be an empty space as well.
+2. Address the "edge cases" - scenarios that qualify as an empty space that isn't equal to the literal <code>"&nbsp;"</code>. For example, we would want to consider <code>""</code> to be an empty space as well.
 
 ### Part I: checking for an empty space
 
@@ -60,7 +60,7 @@ array[index_number]
 
 Then we want to know if the value at that index of the array is equal to an empty string, `" "`, our method should return `false`, indicating that it is not taken.
 
-**Reminder:** Remember that to check for equality, we use the `==` operator, not the `=` operator. The `=` operator is the assignment operator, it sets a variable equal to a value. The `==` operator is the equality operator. It returns `true` if the value on the left side of the operator is the same as the value on the right side of the operator. Otherwise it returns false. To get this test passing, you could also use the `!=`, or "not equal" operator.
+**Reminder:** Remember that to check for equality, we use the `==` operator, not the `=` operator. The `=` operator is the assignment operator, it _*sets*_ one thing equal to a another. The `==` operator is the equality operator. It returns `true` if the value on the left side of the operator is the same as the value on the right side of the operator. Otherwise it returns false. To get this test to pass, you could also use the `!=`, or "not equal" operator.
 
 You'll be able to use `if/else` or simple boolean operators like `&&`, `||`, or `!=`, or '=='.
 
@@ -106,4 +106,7 @@ Failures:
 
 It looks like our method should also account for the use of `nil` to represent an empty or unoccupied space on our tic tac toe board. Use the `||` operator to account for this edge case. Our `position_taken?` method should return false if the submitted position is equal to *either* an empty string, `" "`, *or* an empty string `""`, *or* `nil`.
 
+#### A word about Fault Tolerance
+
+If one programmer uses `nil` to represent an unoccupied position, and another an empty space <code>"&nbsp;"</code>, and yet another an empty string `""`, and yet another a boolean `false`, we will end up checking as many things as there are programmers. In countries with British foundations, Tic Tac Toe is more commonly called Naughts and Crosses, so an occupied `O` position might actually have a `0` in it! But our program operates on `X`s and `O`s, so in the ideal case, even a position with a `0` should return an error. There are multiple ways to solve this lab, but a position is only truly _*taken*_ if and only if it has an `X` or an `O` in it. Even if a position has an ASCII cat in it, it should return `false`. In programming, sometimes it's better (or easier) to check the conditions for `false` rather than `true`, and sometimes it's the other way around.
 <a href='https://learn.co/lessons/ttt-6-position-taken-rb' data-visibility='hidden'>View this lesson on Learn.co</a>
